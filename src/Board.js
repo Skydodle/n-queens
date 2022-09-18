@@ -62,7 +62,7 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -79,11 +79,30 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      var rows = this.rows();
+      var row = rows[rowIndex];
+      var pieceCount = 0;
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === 1) {
+          pieceCount += 1;
+        }
+        if (pieceCount >= 2) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      // we want to iterate the whole board
+      // with each row as i in the for loop
+      var board = this.rows();
+      for (let i = 0; i < board.length; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
